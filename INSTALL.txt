@@ -1,0 +1,56 @@
+﻿Install Git For Windows:
+https://gitforwindows.org/
+
+
+Install Git File Browser:
+https://tortoisegit.org/download/
+
+
+Install Active python for all the dependencies:
+https://www.activestate.com/activepython/downloads
+
+
+Git clone:
+https://github.com/touchtechio/tensorflask.git
+
+
+In tensorflask run:
+python app.py
+
+
+In another console in tensorflask run:
+curl http://localhost:8000?file=dog.jpg
+And
+curl http://localhost:8000?file=cat.jpg
+
+
+You did it! Check your output and logging
+
+
+-- go inspect the app.py --
+-- replace the model to run a difference inference --
+
+
+Extra credit::
+
+
+Restful tensorflow
+https://becominghuman.ai/creating-restful-api-to-tensorflow-models-c5c57b692c10
+https://blog.metaflow.fr/tensorflow-how-to-freeze-a-model-and-serve-it-with-a-python-api-d4f3596b3adc
+
+
+
+
+Flask tensorflow heroku:
+https://github.com/guillaumegenthial/api_ner
+
+
+
+
+Extra Extra::
+
+
+https://store.docker.com/editions/community/docker-ce-desktop-windows
+
+
+https://github.com/leemengtaiwan/cat-recognition-app
