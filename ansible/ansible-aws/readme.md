@@ -16,11 +16,12 @@ install ansible for remote admin
 ](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
 )
 
-install python modules for anisble and boto for managing credentials
-
+install python modules for ansible and boto for managing credentials.  
 ```
 pip install ansible boto3 botocore
 ```
+
+create an inventory directory or update your local ansible hosts dynamically from ec2
 
 your ```/etc/ansible/hosts``` should be created from the ansible provided ec2.py and made executeable. this will reachout to aws for a full inventory of your machines to run playbooks against. alternatively you can run your ansible commands with the ```-i inventory``` parameter like so ansible -i ec2.py -u ubuntu us-west-2b -m ping
 
@@ -34,14 +35,21 @@ ansible-playbook -u ubuntu -vvv -e "type=test" -e "count=3" provision-ec2.yml
 
 
 
-###dev ###
+###dev
 
-provisioning settings and tasks:
-./roles/provision-ec2/tasks/main.yml
+provisioning a test instance
 
+```ansible-playbook  -vvv -e "type=deep" -e "count=1" provision-ec2.yml```
+
+
+configure instance settings in the type vars ./ec2_vars/test.yml
+
+tune the task of privisioning: ./roles/provision-ec2/tasks/main.yml
+
+
+### cheap: very inexpensive provision settings for a test instance
 
 ```
-#provision settings
 #file: ./ec2_vars/test.yml
 
 key_name: <pem-file-path>
