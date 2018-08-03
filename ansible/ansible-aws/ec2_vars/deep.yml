@@ -1,0 +1,15 @@
+#provision settings
+#file: ./ec2_vars/test.yml
+key_name: ~/matt-intel-aws.pem
+aws_region: us-west-2
+vpc_id: vpc-e79efe9e
+ami_id: ami-18693660
+instance_type: t2.small
+my_local_cidr_ip: 0.0.0.0/0
+security_group: matt-aws-intel
+keypair: matt-intel-aws
+elastic_ip: 52.32.55.43
+
+remote_user: ubuntu
+
+

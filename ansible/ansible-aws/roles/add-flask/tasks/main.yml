@@ -1,0 +1,35 @@
+---
+  - name: Synchronization of flask example on the control machine to dest on the remote hosts
+    synchronize:
+      src: ../example/flask
+      dest: ~/
+    register: sync_result
+
+
+  - name: Build image and with buildargs
+    docker_image:
+      name: flask-example
+      path: /home/ubuntu/flask
+      tag: ex1
+      state: present
+      buildargs:
+        log_volume: /var/log/flask
+        listen_port: 5000
+    #when: sync_result.changed
+
+  - name: ensure a flask-example container is running
+    docker_container:
+      name: ex1-site1
+#      state: started
+      state: started
+      image: "flask-example:ex1"
+      #pull: true
+      ports:
+        - "5000:5000"
+
+
+  - name: checkout health monitoring tools
+    git:
+      repo: 'https://github.com/Runscope/healthcheck'
+      dest: ~/healthcheck
+#      version: release-0.22

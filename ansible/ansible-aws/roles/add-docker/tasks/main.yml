@@ -1,0 +1,9 @@
+---
+  - name: install
+    apt: name={{ item }} update_cache=yes
+    with_items:
+      - docker.io
+
+  - name: pip in the docker py libraries
+    pip:
+      name: docker
