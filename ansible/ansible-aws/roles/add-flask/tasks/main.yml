@@ -2,14 +2,14 @@
   - name: Synchronization of flask example on the control machine to dest on the remote hosts
     synchronize:
       src: ../example/flask
-      dest: ~/
+      dest: "{{ working_dir }}"
     register: sync_result
 
 
   - name: Build image and with buildargs
     docker_image:
       name: flask-example
-      path: /home/ubuntu/flask
+      path: "{{ working_dir }}/flask"
       tag: ex1
       state: present
       buildargs:
@@ -27,9 +27,9 @@
       ports:
         - "5000:5000"
 
-
-  - name: checkout health monitoring tools
-    git:
-      repo: 'https://github.com/Runscope/healthcheck'
-      dest: ~/healthcheck
-#      version: release-0.22
+#
+#  - name: checkout health monitoring tools
+#    git:
+#      repo: "https://github.com/Runscope/healthcheck"
+#      dest: "{{ working_dir }}/healthcheck"
+##      version: release-0.22

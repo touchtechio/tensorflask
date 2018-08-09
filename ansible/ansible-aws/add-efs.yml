@@ -1,0 +1,10 @@
+---
+ - hosts: all
+   gather_facts: true
+   become: yes
+   become_user: root
+   become_method: sudo
+   pre_tasks:
+    - include_vars: ec2_vars/{{type}}.yml
+   roles:
+    - add-efs
