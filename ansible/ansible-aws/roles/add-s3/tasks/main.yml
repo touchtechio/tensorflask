@@ -1,0 +1,22 @@
+---
+#  - name: Synchronization of local media into ec2 instance locally mounted s3 bucket
+
+  - name: List keys simple
+    aws_s3:
+      bucket: "{{ test_media_s3_bucket }}"
+      mode: list
+
+  - name: Create an empty bucket
+    aws_s3:
+      bucket: "{{ test_media_s3_bucket }}"
+      mode: create
+      permission: public-read
+      region: "{{ aws_region }}"
+
+  - name: add media via s3 put action
+    aws_s3:
+      bucket: "{{ test_media_s3_bucket }}"
+      object: matt-test-media.mp4
+      src: "{{ test_media_localdir }}"
+      mode: put
+

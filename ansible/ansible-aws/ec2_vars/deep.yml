@@ -21,3 +21,7 @@ working_dir: /home/ubuntu/
 nfs_package: nfs-common # nfs-utils on RHEL/CentOS/Amazon Linux
 efs_file_system_id: fs-b2a5ea1b
 efs_mount_dir: /efs
+
+
+test_media_localdir: /tmp/7C2A1867.MOV
+test_media_s3_bucket: ansible.touchtech.io
