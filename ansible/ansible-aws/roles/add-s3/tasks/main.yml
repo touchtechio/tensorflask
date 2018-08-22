@@ -1,11 +1,6 @@
 ---
 #  - name: Synchronization of local media into ec2 instance locally mounted s3 bucket
 
-  - name: List keys simple
-    aws_s3:
-      bucket: "{{ test_media_s3_bucket }}"
-      mode: list
-
   - name: Create an empty bucket
     aws_s3:
       bucket: "{{ test_media_s3_bucket }}"
@@ -20,3 +15,8 @@
       src: "{{ test_media_localdir }}"
       mode: put
 
+
+  - name: List keys simple
+    aws_s3:
+      bucket: "{{ test_media_s3_bucket }}"
+      mode: list
