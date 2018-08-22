@@ -66,3 +66,16 @@ elastic_ip: <public-ip>
 
 
 
+
+### launching ansible playbooks
+
+```ansible-playbook -u ubuntu -e "type=deep" add-media.yml```
+
+
+```ansible-playbook -u ubuntu -e "type=deep" add-efs.yml```
+
+
+
+
+
+
