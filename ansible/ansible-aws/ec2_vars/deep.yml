@@ -25,3 +25,5 @@ efs_mount_dir: /efs
 
 test_media_localdir: /tmp/7C2A1867.MOV
 test_media_s3_bucket: ansible.touchtech.io
+
+ansible_type: AnsibleDeep

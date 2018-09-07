@@ -11,3 +11,13 @@ keypair: matt-intel-aws
 #image: ami-ba602bc2
 elastic_ip: 52.32.55.43
 
+remote_user: ubuntu
+
+user: ubuntu
+
+nfs_package: nfs-common # nfs-utils on RHEL/CentOS/Amazon Linux
+efs_file_system_id: fs-b2a5ea1b
+efs_mount_dir: /efs
+
+
+ansible_type: AnsibleTest

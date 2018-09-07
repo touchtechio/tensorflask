@@ -10,7 +10,7 @@
       #count: 2
       instance_tags:
          AnsibleName: AnsibleFlask
-         AnsibleType: AnsibleTest
+         AnsibleType: "{{ ansible_type }}"
       exact_count: "{{ count }}"
       count_tag:
          AnsibleName: AnsibleFlask
