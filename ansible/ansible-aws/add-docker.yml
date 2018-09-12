@@ -1,6 +1,6 @@
 ---
- - hosts: all
-   gather_facts: false
+ - hosts: tag_AnsibleType_AnsibleWebserver
+   gather_facts: true
    become: yes
    become_user: root
    become_method: sudo
