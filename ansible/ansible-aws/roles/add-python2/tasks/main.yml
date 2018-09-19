@@ -1,0 +1,8 @@
+---
+  - name: install apt-get python-minimal, python-pip
+    apt: name={{ item }} update_cache=yes
+    update_cache: yes
+    with_items:
+      - python-minimal  # pip and python 2 is super helpful to get ansible running at this point
+      - python-pip
+

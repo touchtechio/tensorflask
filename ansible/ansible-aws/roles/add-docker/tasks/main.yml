@@ -1,12 +1,11 @@
 ---
-  - name: install
+  - name: install apt-get docker.io , python-minimal, python-pip
     apt: name={{ item }} update_cache=yes
     update_cache: yes
     with_items:
       - docker.io
-      - python-minimal  # pip and python 2 is super helpful to get ansible running at this point
-      - python-pip
-
+ #     - python-minimal  # pip and python 2 is super helpful to get ansible running at this point
+ #     - python-pip
 
 
   - name: pip in the docker py libraries
