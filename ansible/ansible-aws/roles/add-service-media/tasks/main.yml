@@ -1,0 +1,38 @@
+---
+  - name: Synchronization of media service rest api on the control machine to dest on the remote hosts
+    synchronize:
+      src: ../example/media
+      dest: "{{ working_dir }}"
+    register: sync_result
+
+
+  - name: Build image with buildargs and sync'd dockerfile
+    docker_image:
+      name: media-service
+      path: "{{ working_dir }}/media"
+      tag: ex1
+      state: present
+      buildargs:
+        log_volume: /var/log/media
+        listen_port: 5000
+    #when: sync_result.changed
+
+  - name: ensure a media service rest api container is running
+    docker_container:
+      name: ex1-site1
+#      state: started
+      state: started
+      image: "media-service:ex1"
+      #pull: true
+      ports:
+        - "80:5000"
+      env:
+        USERNAME: eddy
+        PASSWORD: bowl
+
+#
+#  - name: checkout health monitoring tools
+#    git:
+#      repo: "https://github.com/Runscope/healthcheck"
+#      dest: "{{ working_dir }}/healthcheck"
+##      version: release-0.22

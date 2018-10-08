@@ -8,8 +8,5 @@
     - include_vars: ec2_vars/{{type}}.yml
    roles:
     - add-docker
-#    - add-service-media  # made into its own playbook
-#    - add-flask
-#    - get-docker-status
-#    - remove-docker
+    - add-service-media
 

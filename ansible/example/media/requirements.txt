@@ -1,0 +1,6 @@
+connexion
+Flask-BasicAuth
+Flask-SQLAlchemy
+flask-marshmallow
+marshmallow-sqlalchemy
+marshmallow

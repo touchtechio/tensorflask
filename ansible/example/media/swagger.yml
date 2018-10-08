@@ -1,0 +1,128 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: Swagger REST Article
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /api
+
+# Paths supported by the server application
+paths:
+  /media:
+    get:
+      operationId: media.read_all
+      tags:
+        - Media
+      summary: The media data structure supported by the server application
+      description: Read the list of media
+      responses:
+        200:
+          description: Successful read media list operation
+          schema:
+            type: array
+            items:
+              properties:
+                guid:
+                  type: string
+                filename:
+                  type: string
+                uri:
+                  type: string
+                timestamp:
+                  type: string
+    post:
+      operationId: media.create
+      tags:
+        - Media
+      summary: Create a person and add it to the people list
+      description: Create a new person in the people list
+      parameters:
+        - name: media
+          in: body
+          description: Media to create
+          required: True
+          schema:
+            type: object
+            properties:
+              guid:
+                type: string
+              filename:
+                type: string
+              uri:
+                type: string
+      responses:
+        201:
+          description: Successfully created media in list
+
+  /media/{guid}:
+    get:
+      operationId: media.read_one
+      tags:
+        - Media
+      summary: Fetch a media meta-data via get with media guid
+      description: Read a single media record
+      parameters:
+        - name: guid
+          in: path
+          description: guid for media metadata requested
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successful read media for given guid
+          schema:
+            type: array
+            items:
+              properties:
+                guid:
+                  type: string
+                filename:
+                  type: string
+                uri:
+                  type: string
+                timestamp:
+                  type: string
+
+    put:
+      operationId: media.update
+      tags:
+        - Media
+      summary: Update a media in the media list
+      description: Update a media in the media list
+      parameters:
+        - name: guid
+          in: path
+          description: guid of the media to update in the list
+          type: string
+          required: True
+        - name: media
+          in: body
+          schema:
+            type: object
+            properties:
+              filename:
+                type: string
+              uri:
+                type: string
+      responses:
+        200:
+          description: Successfully updated media in media list
+
+    delete:
+      operationId: media.delete
+      tags:
+        - Media
+      summary: Delete a media from the media list
+      description: Delete a media
+      parameters:
+        - name: guid
+          in: path
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successfully deleted a media from media list
