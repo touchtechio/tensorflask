@@ -1,0 +1,38 @@
+---
+  - name: Synchronization of fileupload to the remote hosts
+    synchronize:
+      src: ../example/node-file-upload
+      dest: "{{ working_dir }}"
+    register: sync_result
+
+
+  - name: Build image and with buildargs
+    docker_image:
+      name: node-file-upload
+      path: "{{ working_dir }}/node-file-upload"
+      tag: ex1
+      state: present
+      buildargs:
+        log_volume: /var/log/node-file-upload
+        listen_port: 3200
+    #when: sync_result.changed
+
+  - name: ensure a flask-example container is running
+    docker_container:
+      name: ex1-site1
+#      state: started
+      state: started
+      image: "node-file-upload:ex1"
+      #pull: true
+      ports:
+        - "80:3200"
+      volumes:
+        - /tmp:/usr/src/app/fu
+
+
+#
+#  - name: checkout health monitoring tools
+#    git:
+#      repo: "https://github.com/Runscope/healthcheck"
+#      dest: "{{ working_dir }}/healthcheck"
+##      version: release-0.22

@@ -75,6 +75,11 @@ elastic_ip: <public-ip>
 ```ansible-playbook -u ubuntu -e "type=deep" add-efs.yml```
 
 
+```
+ansible-playbook -e "type=webserver" -u ubuntu -e "count=1" provision-ec2.yml
+ansible-playbook -e "type=webserver" -u ubuntu add-python2.yml
+ansible-playbook -e "type=webserver" -u ubuntu add-docker.yml
+```
 
 
 
