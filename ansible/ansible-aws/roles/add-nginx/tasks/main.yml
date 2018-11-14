@@ -1,0 +1,32 @@
+---
+#  - name: Stop HAProxy in case it is on port 80 preventing nginx from installing
+#    service:
+#        name: haproxy
+#        state: stopped
+
+#  - name: ensure nginx is at the latest version
+#    apt: name=nginx state=present
+
+  - name: copy the nginx config file and restart nginx
+    copy:
+      src: templates/static_site.cfg
+      dest: /etc/nginx/sites-available/static_site.cfg
+    become: yes
+
+  - name: create symlink
+    file:
+      src: /etc/nginx/sites-available/static_site.cfg
+      dest: /etc/nginx/sites-enabled/default
+      state: link
+    become: yes
+
+  - name: restart nginx
+    service:
+      name: nginx
+      state: restarted
+    become: yes
+
+#  - name: Stop HAProxy in case it is on port 80 preventing nginx from installing
+#    service:
+#        name: haproxy
+#        state: stopped
