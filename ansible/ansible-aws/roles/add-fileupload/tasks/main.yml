@@ -6,7 +6,7 @@
     register: sync_result
 
 
-  - name: Build image and with buildargs
+  - name: Build fileupload image and with buildargs
     docker_image:
       name: node-file-upload
       path: "{{ working_dir }}/node-file-upload"
@@ -17,17 +17,19 @@
         listen_port: 3200
     #when: sync_result.changed
 
-  - name: ensure a flask-example container is running
+  - name: ensure a fileupload container is running
     docker_container:
-      name: ex1-site1
+      name: ex1-fileupload
 #      state: started
       state: started
       image: "node-file-upload:ex1"
       #pull: true
       ports:
-        - "80:3200"
+        - "3200:3200"
       volumes:
-        - /tmp:/usr/src/app/fu
+        - "{{ efs_mount_dir }}/m:/usr/src/app/fu"
+#      env:
+#        EXT_URL_BASE: "http://{{ ansible_host }}"
 
 
 #

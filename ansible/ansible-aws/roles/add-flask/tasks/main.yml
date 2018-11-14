@@ -6,7 +6,7 @@
     register: sync_result
 
 
-  - name: Build image and with buildargs
+  - name: Build flask image and with buildargs
     docker_image:
       name: flask-example
       path: "{{ working_dir }}/flask"
@@ -17,15 +17,18 @@
         listen_port: 5000
     #when: sync_result.changed
 
-  - name: ensure a flask-example container is running
+  - name: ensure a flask front-end container is running
     docker_container:
-      name: ex1-site1
+      name: ex1-flask
 #      state: started
       state: started
       image: "flask-example:ex1"
       #pull: true
       ports:
-        - "80:5000"
+        - "8080:5000"
+      env:
+        USERNAME: eddy
+        PASSWORD: bowl
 
 #
 #  - name: checkout health monitoring tools
