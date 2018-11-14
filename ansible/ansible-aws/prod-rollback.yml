@@ -1,0 +1,52 @@
+---
+ - hosts: localhost
+   connection: local
+   gather_facts: false
+#testing this
+#   user: root
+   pre_tasks:
+    - include_vars: ec2_vars/{{type}}.yml
+   tasks:
+
+    - name: Gather facts about current Production
+      ec2_instance_facts:
+        region: "{{aws_region}}"
+        filters:
+          "tag:Name": Production
+      register: rollthisback
+
+    - name: Gather facts about Previous Production
+      ec2_instance_facts:
+        region: "{{aws_region}}"
+        filters:
+          "tag:Name": Rollback
+      register: previousproduction
+
+#    - debug: msg="{{ rollthisback.instances }}"
+#    - debug: msg="{{ rollthisback.instances[0].public_ip_address }}"
+#    - debug: msg="{{ previousproduction.instances }}"
+#    - debug: msg="{{ previousproduction.instances[0].public_ip_address }}"
+
+
+    - name: tag Production -> Rolledback
+      ec2_tag:
+        state: present
+        resource: "{{ item.instance_id }}"
+        region: "{{ aws_region }}"
+
+        tags:
+          Name: Rolledback
+      with_items: "{{ rollthisback.instances }}"
+
+
+    - name: tag Rollback -> Production
+      ec2_tag:
+        state: present
+        resource: "{{ item.instance_id }}"
+        region: "{{ aws_region }}"
+        tags:
+          Name: Production
+      with_items: "{{ previousproduction.instances }}"
+
+
+
