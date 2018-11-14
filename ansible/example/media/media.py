@@ -1,4 +1,5 @@
 from datetime import datetime
+import uuid
 # 3rd party modules
 from flask import (
     make_response,
@@ -14,7 +15,7 @@ def get_timestamp():
 MEDIA = {
     "guid_media_999": {
         "guid": "guid_media_999",
-        "filename": "VID_20180803_201053.mp4",
+        "filename": "exploratorium.mp4",
         "uri": "https://s3-us-west-2.amazonaws.com/content.touchtech.io/media/VID_20180803_201053.mp4",
         "timestamp": get_timestamp()
     },
@@ -26,14 +27,14 @@ MEDIA = {
     },
     "guid_media_997": {
         "guid": "guid_media_997",
-        "filename": "guid_media_997.mp4",
-        "uri": "nfs://MEDIA/guid_media_997.mp4",
+        "filename": "GagaDmxRing.mp4",
+        "uri": "http://contentai.intel.com/m/GagaDmxRing.mp4",
         "timestamp": get_timestamp()
     },
     "guid_media_996": {
         "guid": "guid_media_996",
         "filename": "7C2A1862-roto-before.mov",
-        "uri": "https://s3-us-west-2.amazonaws.com/content.touchtech.io/media/7C2A1862-roto-before.mov",
+        "uri": "https://s3-us-west-2.amazonaws.com/content.touchtech.io/media/7C2A1862-roto-before-vlc.webm",
         "timestamp": get_timestamp()
     }
 }
@@ -42,7 +43,7 @@ MEDIA = {
 # Create a handler for our read (GET) media list
 def read_all():
     """
-    This function responds to a request for /api/media
+    This function responds to a request for /media/api/media
     with the complete lists of media
 
     :return:        sorted list of media
@@ -54,7 +55,7 @@ def read_all():
 # Create a handler for our read (GET) media
 def read_one(guid):
     """
-    This function responds to a request for /api/media/{guid}
+    This function responds to a request for /media/api/media/{guid}
 
     :param guid:    guid of media record to find
     :return:        media record
@@ -74,7 +75,7 @@ def read_one(guid):
 # Create a handler for our read (GET) media
 def create(media):
     """
-    This function responds to a request for /api/media/{guid}
+    This function responds to a request for /media/api/media/{guid}
 
     :param media:   media record to create
     :return:        201 on success, 406 on media record already exists
@@ -84,13 +85,20 @@ def create(media):
     filename = media.get('filename', None)
     uri = media.get('uri', None)
 
+    if '' is guid or guid is None:
+        guid = 'guid_media_'+str(uuid.uuid4())
+
     # if the the media does not exist, CREATE
     if guid not in MEDIA and guid is not None:
         MEDIA[guid] = {
             'guid': guid,
             'filename': filename,
-            'uri': uri
+            'uri': uri,
+            'timestamp': get_timestamp()
         }
+
+        # call server-side functions
+        #
 
         return make_response('{guid} successfully create for {filename}'.format(guid=guid, filename=filename), 201)
 

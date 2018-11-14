@@ -6,6 +6,12 @@
 // Create the namespace instance
 let ns = {};
 
+var stringTruncate = function(str, length){
+  var dots = str.length > length ? '...' : '';
+  return str.substring(0, length)+dots;
+};
+
+
 // Create the model instance
 ns.model = (function() {
     'use strict';
@@ -14,10 +20,10 @@ ns.model = (function() {
 
     // Return the API
     return {
-        'read': function() {
+        read: function() {
             let ajax_options = {
                 type: 'GET',
-                url: 'api/media',
+                url: '/media/api/media',
                 accepts: 'application/json',
                 dataType: 'json'
             };
@@ -32,7 +38,7 @@ ns.model = (function() {
         create: function(media) {
             let ajax_options = {
                 type: 'POST',
-                url: 'api/media',
+                url: '/media/api/media',
                 accepts: 'application/json',
                 contentType: 'application/json',
                 dataType: 'json',
@@ -49,7 +55,7 @@ ns.model = (function() {
         update: function(media) {
             let ajax_options = {
                 type: 'PUT',
-                url: `api/media/${media.guid}`,
+                url: '/media/api/media/' + media.guid,
                 accepts: 'application/json',
                 contentType: 'application/json',
                 dataType: 'json',
@@ -63,10 +69,10 @@ ns.model = (function() {
                 $event_pump.trigger('model_error', [xhr, textStatus, errorThrown]);
             })
         },
-        'delete': function(media) {
+        delete: function(guid) {
             let ajax_options = {
                 type: 'DELETE',
-                url: `api/media/${media}`,
+                url: '/media/api/media/' + guid,
                 accepts: 'application/json',
                 contentType: 'plain/text'
             };
@@ -111,7 +117,7 @@ ns.view = (function() {
             if (media) {
                 for (let i=0, l=media.length; i < l; i++) {
                     rows += `<tr data-media-id="${media[i].guid}">
-                        <td class="guid">${media[i].guid}</td>
+                        <td class="guid">${stringTruncate(media[i].guid, 20)}</td>
                         <td class="filename"><a href="${media[i].uri}">${media[i].filename}</a></td>
                         <td class="uri">${media[i].uri}</td>
                         <td>${media[i].timestamp}</td>
