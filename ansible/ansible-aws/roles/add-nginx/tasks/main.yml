@@ -1,11 +1,11 @@
 ---
-#  - name: Stop HAProxy in case it is on port 80 preventing nginx from installing
-#    service:
-#        name: haproxy
-#        state: stopped
+  - name: Stop HAProxy in case it is on port 80 preventing nginx from installing
+    service:
+        name: haproxy
+        state: stopped
 
-#  - name: ensure nginx is at the latest version
-#    apt: name=nginx state=present
+  - name: ensure nginx is at the latest version
+    apt: name=nginx state=present
 
   - name: copy the nginx config file and restart nginx
     copy:
@@ -26,7 +26,7 @@
       state: restarted
     become: yes
 
-#  - name: Stop HAProxy in case it is on port 80 preventing nginx from installing
-#    service:
-#        name: haproxy
-#        state: stopped
+  - name: Stop HAProxy in case it is on port 80 preventing nginx from installing
+    service:
+        name: haproxy
+        state: started
