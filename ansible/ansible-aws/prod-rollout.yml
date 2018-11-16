@@ -13,14 +13,14 @@
         region: "{{aws_region}}"
         filters:
           "tag:Name": Production
-      register: rollthisback
+      register: old_prod
 
-    - name: Gather facts about Previous Production
+    - name: Gather facts about Staging
       ec2_instance_facts:
         region: "{{aws_region}}"
         filters:
-          "tag:Name": Rollback
-      register: previousproduction
+          "tag:Name": Staging
+      register: new_prod
 
 #    - debug: msg="{{ rollthisback.instances }}"
 #    - debug: msg="{{ rollthisback.instances[0].public_ip_address }}"
@@ -28,31 +28,34 @@
 #    - debug: msg="{{ previousproduction.instances[0].public_ip_address }}"
 
 
-    - name: tag Production -> Rolledback
+    - name: tag Production -> Rollback
       ec2_tag:
         state: present
         resource: "{{ item.instance_id }}"
         region: "{{ aws_region }}"
 
         tags:
-          Name: Rolledback
-      with_items: "{{ rollthisback.instances }}"
+          Name: Rollback
+      with_items: "{{ old_prod.instances }}"
 
 
-    - name: tag Rollback -> Production
+    - name: tag Staging -> Production
       ec2_tag:
         state: present
         resource: "{{ item.instance_id }}"
         region: "{{ aws_region }}"
         tags:
           Name: Production
-      with_items: "{{ previousproduction.instances }}"
-
+      with_items: "{{ new_prod.instances }}"
 
     - name: associate new elastic IPs with each of the instances
       ec2_eip:
         ip: "{{ elastic_ip }}"
         region: "{{ aws_region }}"
         instance_id: "{{ item.instance_id }}"
-      with_items: "{{ previousproduction.instances }}"
+      with_items: "{{ new_prod.instances }}"
+
+
+
+
 
