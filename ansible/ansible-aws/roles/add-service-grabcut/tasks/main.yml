@@ -1,34 +1,36 @@
 ---
   - name: Synchronization of media service rest api on the control machine to dest on the remote hosts
     synchronize:
-      src: ../example/media
+      src: "{{ grabcut_working_dir }}"
       dest: "{{ working_dir }}"
     register: sync_result
 
 
   - name: Build media image with buildargs and sync'd dockerfile
     docker_image:
-      name: media-service
-      path: "{{ working_dir }}/media"
+      name: grabcut-service
+      path: "{{ working_dir }}/grabcut"
       tag: ex1
       state: present
       buildargs:
-        log_volume: /var/log/media
+        log_volume: /var/log/grabcut
         listen_port: 5000
     #when: sync_result.changed
 
   - name: ensure a media service rest api container is running
     docker_container:
-      name: ex1-media
+      name: ex1-grabcut
 #      state: started
       state: started
-      image: "media-service:ex1"
+      image: "grabcut-service:ex1"
       #pull: true
       ports:
-        - "5000:5000"
-      env:
-        USERNAME: eddy
-        PASSWORD: bowl
+        - "6000:5000"
+      volumes:
+        - "{{ efs_mount_dir }}/m:/efs/m"
+#      env:
+#        USERNAME: eddy
+#        PASSWORD: bowl
 
 #
 #  - name: checkout health monitoring tools
