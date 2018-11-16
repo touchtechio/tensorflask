@@ -17,13 +17,37 @@ body, .ui-btn {
 }
 
 .editor {
-    width: 50%;
+    width: 40%;
     margin-left: auto;
     margin-right: auto;
     padding: 5px;
     border: 1px solid lightgrey;
     border-radius: 3px;
     margin-bottom: 5px;
+}
+
+
+.preview {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+    margin-bottom: 5px;
+}
+
+.left {
+    float:left;
+}
+
+
+.center {
+    float:left;
+}
+
+.right {
+    float:right;
+    width: 15%
 }
 
 label {

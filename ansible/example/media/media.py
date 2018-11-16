@@ -36,6 +36,38 @@ MEDIA = {
         "filename": "7C2A1862-roto-before.mov",
         "uri": "https://s3-us-west-2.amazonaws.com/content.touchtech.io/media/7C2A1862-roto-before-vlc.webm",
         "timestamp": get_timestamp()
+    },
+    "guid_media_995": {
+        "guid": "guid_media_995",
+        "filename": "casabonita.mp4",
+        "uri": "http://contentai.intel.com/m/casabonita.mp4",
+        "timestamp": get_timestamp()
+    },
+    "guid_media_994": {
+        "guid": "guid_media_994",
+        "filename": "VID_20180508_163817.mp4",
+        "uri": "http://contentai.intel.com/m/VID_20180508_163817.mp4",
+        "timestamp": get_timestamp()
+    },
+    "guid_media_993": {
+        "guid": "guid_media_993",
+        "filename": "firefly-gesture-trails.mp4",
+        "uri": "http://contentai.intel.com/m/firefly-gesture-trails.mp4",
+        "timestamp": get_timestamp()
+    },
+    "guid_media_992": {
+        "guid": "guid_media_992",
+        "filename": "firefly-interface-test-video.mp4",
+        "uri": "http://contentai.intel.com/m/firefly-interface-test-video.mp4",
+        "timestamp": get_timestamp()
+    },
+    "guid_media_991": {
+        "guid": "guid_media_991",
+        "filename": "fox.mp4",
+        "uri": "http://contentai.intel.com/m/fox.mp4",
+        "timestamp": get_timestamp(),
+        "region": [100, 200, 300, 400],
+        "frame": 200
     }
 }
 

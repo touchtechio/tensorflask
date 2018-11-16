@@ -12,6 +12,8 @@ var stringTruncate = function(str, length){
 };
 
 
+
+
 // Create the model instance
 ns.model = (function() {
     'use strict';
@@ -83,6 +85,23 @@ ns.model = (function() {
             .fail(function(xhr, textStatus, errorThrown) {
                 $event_pump.trigger('model_error', [xhr, textStatus, errorThrown]);
             })
+        },
+        grabcut_create: function(grabcut) {
+            let ajax_options = {
+                type: 'POST',
+                url: '/grabcut/api/grabcut',
+                accepts: 'application/json',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify(grabcut)
+            };
+            $.ajax(ajax_options)
+            .done(function(data) {
+                $event_pump.trigger('grabcut_create_success', [data]);
+            })
+            .fail(function(xhr, textStatus, errorThrown) {
+                $event_pump.trigger('grabcut_error', [xhr, textStatus, errorThrown]);
+            })
         }
     };
 }());
@@ -93,7 +112,12 @@ ns.view = (function() {
 
     let $guid = $('#guid'),
         $uri = $('#uri'),
-        $filename = $('#filename');
+        $filename = $('#filename'),
+        $grabcut_frame = $('#grabcut_frame'),
+        $grabcut_filename = $('#grabcut_filename'),
+        $grabcut_region = $('#grabcut_region'),
+        $grabcut_preview = $('#grabcut_preview'),
+        $grabcut_preview_url = $('#grabcut_preview_url');
 
     // return the API
     return {
@@ -106,6 +130,11 @@ ns.view = (function() {
             $guid.val(media.guid);
             $filename.val(media.filename);
             $uri.val(media.uri).focus();
+            $grabcut_region.val('[600, 106, 2694, 2264]');
+            $grabcut_filename.val('/efs/m/'+media.filename);
+            let d = new Date();
+            $grabcut_preview.attr('src',media.uri+'.jpg?'+d.getTime());
+            $grabcut_preview_url.attr('href',media.uri+'.jpg?'+d.getTime());
         },
         build_table: function(media) {
             let rows = ''
@@ -146,7 +175,14 @@ ns.controller = (function(m, v) {
         $event_pump = $('body'),
         $guid = $('#guid'),
         $uri = $('#uri'),
-        $filename = $('#filename');
+        $filename = $('#filename'),
+        $grabcut_frame = $('#grabcut_frame'),
+        $grabcut_filename = $('#grabcut_filename'),
+        $grabcut_region_x = $('#grabcut_region_x'),
+        $grabcut_region_y = $('#grabcut_region_y'),
+        $grabcut_region_h = $('#grabcut_region_height'),
+        $grabcut_region_w = $('#grabcut_region_width'),
+        $grabcut_region = $('#grabcut_region');
 
     // Get the data from the model after the controller is done initializing
     setTimeout(function() {
@@ -213,6 +249,47 @@ ns.controller = (function(m, v) {
         view.reset();
     })
 
+    // Validate input
+    function grabcut_validate(frame, filename, region) {
+        return frame !== "" && filename !== "" && region !== "";
+    }
+
+
+    // Create our event handlers
+    $('#grabcut_create').click(function(e) {
+
+        console.log('grabcut handler called');
+        let frame = $grabcut_frame.val(),
+            filename = $grabcut_filename.val(),
+//            todo: parse the html region info
+            region = $grabcut_region.val();
+
+//            region = region.split(" ")
+
+            region = [600, 106, 2694, 2264];
+
+            region = [
+                parseInt($grabcut_region_x.val()),
+                parseInt($grabcut_region_y.val()),
+                parseInt($grabcut_region_w.val()),
+                parseInt($grabcut_region_h.val())
+            ];
+
+        e.preventDefault();
+
+        if (grabcut_validate(frame, filename, region)) {
+            model.grabcut_create({
+                'frameno': frame,
+                'filename': filename,
+                'output_folder':'/efs/m/IMG',
+                'region':region
+            })
+        } else {
+            alert('Problem with grabcut input');
+        }
+    });
+
+
     $('table > tbody').on('dblclick', 'tr', function(e) {
         let $target = $(e.target),
             guid,
@@ -259,6 +336,16 @@ ns.controller = (function(m, v) {
     });
 
     $event_pump.on('model_error', function(e, xhr, textStatus, errorThrown) {
+        let error_msg = textStatus + ': ' + errorThrown + ' - ' + xhr.responseJSON.detail;
+        view.error(error_msg);
+        console.log(error_msg);
+    })
+    $event_pump.on('grabcut_create_success', function(e, data) {
+        model.read();
+    });
+
+
+    $event_pump.on('grabcut_error', function(e, xhr, textStatus, errorThrown) {
         let error_msg = textStatus + ': ' + errorThrown + ' - ' + xhr.responseJSON.detail;
         view.error(error_msg);
         console.log(error_msg);

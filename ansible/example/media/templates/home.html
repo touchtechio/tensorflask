@@ -14,7 +14,7 @@
 <body>
     <div class="container">
         <h1 class="banner">Media REST Api Demo Application</h1>
-        <div class="section editor">
+        <div class="section editor left">
             <label for="guid">Guid
                 <input id="guid" type="text" />
             </label>
@@ -26,11 +26,45 @@
             <label for="uri">Uri
                 <input id="uri" type="text" />
             </label>
+
             <br />
+
             <button id="create">Create</button>
             <button id="update">Update</button>
             <button id="delete">Delete</button>
             <button id="reset">Reset</button>
+        </div>
+         <div class="section editor center">
+            <label for="frame">Frame
+                <input id="grabcut_frame" type="text" />
+            </label>
+            <br />
+            <label for="filename">Filename
+                <input id="grabcut_filename" type="text" />
+            </label>
+            <br />
+            <label for="region">Region
+                <!--<input id="grabcut_region" type="text" />-->
+                x<input id="grabcut_region_x" type="int" size="4"/>
+                y<input id="grabcut_region_y" type="int" size="4"/>
+                w<input id="grabcut_region_width" type="int" size="4"/>
+                h<input id="grabcut_region_height" type="int" size="4"/>
+
+            </label>
+            <br />
+            <!--<label for="preview">preview-->
+                <!--<img height="100" id="a_grabcut_preview" src="" />-->
+            <!--</label>-->
+            <!--<br />-->
+            <button id="grabcut_create">Create</button>
+
+        </div>
+        <div class="section preview right">
+            <label for="preview">preview</label>
+            <br />
+            <a href="" id="grabcut_preview_url">
+                <img height="100" id="grabcut_preview" src="" />
+            </a>
         </div>
         <div class="media">
             <table>
