@@ -1,0 +1,54 @@
+---
+- name: Remove Flask Container
+  docker_container:
+    name: ex1-flask
+    image: "flask-example:ex1"
+    state: absent
+    restart: yes
+
+- name: Remove Flask Image
+  docker_image:
+    name: flask-example
+    state: absent
+    tag: ex1
+
+- name: Remove Media Container
+  docker_container:
+    name: ex1-media
+    image: "media-service:ex1"
+    state: absent
+    restart: yes
+
+- name: Remove Media Image
+  docker_image:
+    name: media-service
+    state: absent
+    tag: ex1
+
+- name: Remove Upload Container
+  docker_container:
+    name: ex1-fileupload
+    image: "node-file-upload:ex1"
+    state: absent
+    restart: yes
+
+- name: Remove Upload Image
+  docker_image:
+    name: node-file-upload
+    state: absent
+    tag: ex1
+
+- name: Remove Grabcut Container
+  docker_container:
+    name: ex1-grabcut
+    image: "node-file-upload:ex1"
+    state: absent
+    restart: yes
+
+- name: Remove Grabcut Image
+  docker_image:
+    name: grabcut-service
+    state: absent
+    tag: ex1
+
+
