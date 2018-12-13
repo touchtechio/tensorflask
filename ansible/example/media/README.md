@@ -19,3 +19,11 @@ docker ps
 docker logs <container id>
 docker exec -it <container id> /bin/bash
 ```
+
+
+### DOCKER-COMPOSE
+
+```
+docker image rm media_web:latest -f
+docker-compose -f docker_gunicorn.yml up -d
+```
