@@ -20,7 +20,7 @@ But the code should be pretty self-explanatory...
 
 ```
 docker build -t node-file-upload .
-docker run -p 3200:3200 -v /tmp/upload:/usr/src/app/fu node-file-upload
+docker run -p 3200:3200 -v /tmp/upload:/usr/src/app/fu node-file-upload:ex1
 ```
 
 check on the running process ```docker ps```

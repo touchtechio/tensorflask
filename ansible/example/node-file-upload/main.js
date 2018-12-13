@@ -11,11 +11,19 @@ app.use(busboy({
 const uploadPath = path.join(__dirname, 'fu/'); // Register the upload path
 fs.ensureDir(uploadPath); // Make sure that he upload path exits
 
+var Client = require('node-rest-client').Client;
+
+var client = new Client();
+
+//var external_baseurl = os.environ['EXT_URL_BASE']
+
+var EXT_URL_BASE = process.env.EXT_URL_BASE || 'http://contentai.intel.com';
+
 
 /**
  * Create route /upload which handles the post request
  */
-app.route('/upload').post((req, res, next) => {
+app.route('/upload/new').post((req, res, next) => {
 
     req.pipe(req.busboy); // Pipe it trough busboy
 
@@ -30,7 +38,24 @@ app.route('/upload').post((req, res, next) => {
         // On finish of the upload
         fstream.on('close', () => {
             console.log(`Upload of '${filename}' finished`);
-            res.redirect('back');
+            console.log(`EXT_URL_BASE of '${EXT_URL_BASE}' `);
+
+
+
+            var args = {
+                data: { filename: filename, uri: EXT_URL_BASE +'/m/'+filename},
+                headers: { "Content-Type": "application/json" }
+            };
+
+            // direct way
+            client.post(EXT_URL_BASE + '/media/api/media', args, function (data, response) {
+                // parsed response body as js object
+                console.log(data);
+                // raw response
+                console.log(response);
+            });
+
+            res.redirect('/media/');
         });
     });
 });
@@ -39,9 +64,9 @@ app.route('/upload').post((req, res, next) => {
 /**
  * Serve the basic index.html with upload form
  */
-app.route('/').get((req, res) => {
+app.route('/upload').get((req, res) => {
     res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write('<form action="upload" method="post" enctype="multipart/form-data">');
+    res.write('<form action="/upload/new" method="post" enctype="multipart/form-data">');
     res.write('<input type="file" name="fileToUpload"><br>');
     res.write('<input type="submit">');
     res.write('</form>');

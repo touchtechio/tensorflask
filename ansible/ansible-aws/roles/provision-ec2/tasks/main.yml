@@ -9,11 +9,12 @@
       wait: yes
       #count: 2
       instance_tags:
-         AnsibleName: AnsibleFlask
-         AnsibleType: "{{ ansible_type }}"
+        Name: "{{ ansible_type }}"
+        AnsibleName: "{{ ansible_type }}"
+        AnsibleType: "{{ ansible_type }}"
       exact_count: "{{ count }}"
       count_tag:
-         AnsibleName: AnsibleFlask
+         AnsibleName: "{{ ansible_type }}"
 
     register: ec2
 

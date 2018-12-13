@@ -2,13 +2,10 @@
  - hosts: localhost
    connection: local
    gather_facts: false
-#testing this
-#   user: root
    pre_tasks:
     - include_vars: ec2_vars/{{type}}.yml
    roles:
     - provision-ec2
-#    - provision-elastic-ip
 
 
 
