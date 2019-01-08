@@ -1,5 +1,5 @@
 ---
- - hosts: tag_AnsibleType_AnsibleWebserver
+ - hosts: tag_AnsibleType_webserver
    gather_facts: true
    become: yes
    become_user: root

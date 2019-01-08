@@ -1,4 +1,7 @@
 ---
+ - name: Host Type
+   debug: type={{type}} : Running on ec2 hosts with AnsibleType of '{{type}}'
+
  - hosts: tag_AnsibleType_{{type}}
    gather_facts: true
    become: yes
