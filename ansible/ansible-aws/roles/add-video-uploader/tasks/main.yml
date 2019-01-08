@@ -1,0 +1,35 @@
+---
+  - name: Synchronization of flask example on the control machine to dest on the remote hosts
+    synchronize:
+      src: /Users/pinnermx/dev/git/cloud-file-upload
+      dest: "{{ working_dir }}"
+    register: sync_result
+
+
+  - name: Build image and with buildargs
+    docker_image:
+      name: cloud-file-upload
+      path: "{{ working_dir }}/cloud-file-upload"
+      tag: ex1
+      state: present
+      buildargs:
+        log_volume: /var/log/cloud-file-upload
+        listen_port: 6000
+    #when: sync_result.changed
+
+  - name: ensure a cloud-file-upload container is running
+    docker_container:
+      name: ex1-site1
+#      state: started
+      state: started
+      image: "flask-example:ex1"
+      #pull: true
+      ports:
+        - "6000:6000"
+
+#
+#  - name: checkout health monitoring tools
+#    git:
+#      repo: "https://github.com/Runscope/healthcheck"
+#      dest: "{{ working_dir }}/healthcheck"
+##      version: release-0.22

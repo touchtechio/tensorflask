@@ -1,0 +1,14 @@
+---
+ - hosts: tag_AnsibleType_{{type}}
+   gather_facts: true
+   become: yes
+   become_user: root
+   become_method: sudo
+   pre_tasks:
+    - include_vars: ec2_vars/{{type}}.yml
+   roles:
+    - add-docker
+    - add-service-scenespace
+
+#   handlers:
+#    - include: handlers/main.yml
