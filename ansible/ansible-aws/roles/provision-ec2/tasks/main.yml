@@ -1,4 +1,8 @@
 ---
+  - name: Host Type
+    debug:
+      msg: Provisioning count={{count}} hosts on ec2 with AnsibleType of '{{type}}'
+
   - name: Provision a set of instances
     ec2:
       keypair: "{{keypair}}"

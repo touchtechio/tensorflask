@@ -7,8 +7,4 @@
    pre_tasks:
     - include_vars: ec2_vars/{{type}}.yml
    roles:
-    - add-docker
-    - add-service-scenespace
-
-#   handlers:
-#    - include: handlers/main.yml
+    - add-service-rabbitmq

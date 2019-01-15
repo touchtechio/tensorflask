@@ -1,0 +1,38 @@
+---
+#  - name: Synchronization of media service rest api on the control machine to dest on the remote hosts
+#    synchronize:
+#      src: "{{ scenespace_dir }}"
+#      dest: "{{ working_dir }}"
+#    register: sync_result
+#
+#
+#  - name: Build scenespace image with buildargs and sync'd dockerfile
+#    docker_image:
+#      name: scenespace-service
+#      path: "{{ working_dir }}/SceneSpace"
+#      tag: ex1
+#      state: present
+#      buildargs:
+#        log_volume: /var/log/scenespace
+#        listen_port: 7000
+#    #when: sync_result.changed
+
+  - name: docker to run a rabbitmq instance container
+    docker_container:
+      name: ex1-rabbitmq
+#      state: started
+      state: started
+      image: "rabbitmq:3"
+      #pull: true
+      ports:
+        - "5672:5672"
+      env:
+        PYTHONUNBUFFERED: 0
+
+# docker run -p 7000:7000 -e "SCENESPACE_MEDIA_BASEPATH=/usr/src/scenespace/scenespaceinput/" -e "PYTHONUNBUFFERED=0" scenespace-service:ex1
+#
+#  - name: checkout health monitoring tools
+#    git:
+#      repo: "https://github.com/Runscope/healthcheck"
+#      dest: "{{ working_dir }}/healthcheck"
+##      version: release-0.22
