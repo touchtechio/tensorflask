@@ -1,0 +1,44 @@
+<h1>{{ image.directory }}</h1>
+
+<!-- TODO: PARSE OUT DIRECTORY -->
+
+<h1>{{ image.filename }}.{{ image.extension }}</h1>
+
+<!-- TODO: LINK: PARSE OUT DIRECTORY -->
+
+
+
+<!-- TODO: TEST -->
+
+<ul>
+{% for region in image.region_set.all %}
+    <li>{{ region }}</li>
+{% endfor %}
+</ul>
+
+
+<!-- TODO: LINK: PARSE OUT DIRECTORY -->
+
+URI http://contentai.intel.com/m/{{ image.filename }} IMG
+
+<p><!-- TEST ERORRS -->
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<!--<form action="{% url 'images:tag' image.id %}" method="post">-->
+{% csrf_token %}
+
+<!-- tag list -->
+{% for tag in image.tags.all %}
+
+
+<!-- TODO: LINK: PARSE OUT DIRECTORY -->
+
+    {{tag}}
+    <!--<input type="radio" name="region" id="region{{ forloop.counter }}" value="{{ region.id }}">-->
+    <!--<label for="region{{ forloop.counter }}">{{ region.type }}</label><br>-->
+{% endfor %}
+<!--<input type="submit" value="Region">-->
+<!--</form>-->
+
+</p>
