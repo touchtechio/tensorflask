@@ -37,11 +37,12 @@ class Images(object):
     def create_table(self):
         """create a database table if it does not exist already"""
         self.cur.execute('''CREATE TABLE IF NOT EXISTS IMAGES
-                             (ID INT PRIMARY KEY     NOT NULL,
-                             FILENAME       TEXT    NOT NULL UNIQUE,
+                             (ID INT PRIMARY KEY    NOT NULL,
+                             FILENAME       TEXT    NOT NULL,
                              PATH           TEXT    NOT NULL,
                              EXT            TEXT    NOT NULL,
-                             TAGS           TEXT    NOT NULL);''')
+                             TAGS           TEXT    NOT NULL,
+                             FRAME_NO       INTEGER NULL);''')
 
     def drop_table(self):
         """drop a database table if it does exist already"""
