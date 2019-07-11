@@ -8,6 +8,7 @@ from django.utils import timezone
 from taggit.managers import TaggableManager
 
 
+
 # Create your models here.
 class Image(models.Model):
     filename = models.CharField(max_length=100)

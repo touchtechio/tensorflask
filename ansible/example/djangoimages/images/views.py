@@ -7,7 +7,6 @@ from django.utils import timezone
 from django.views import generic
 
 
-
 from django.shortcuts import render
 
 
@@ -20,7 +19,7 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         """Return the last five published questions."""
-        return Image.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
+        return Image.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:100]
 
 
 class DetailView(generic.DetailView):
