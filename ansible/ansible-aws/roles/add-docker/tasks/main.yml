@@ -18,3 +18,6 @@
       name: docker   # docker-py is the older one
       extra_args: --upgrade
 
+
+# todo add local user to docker usergroup
+#sudo usermod -aG docker $USER

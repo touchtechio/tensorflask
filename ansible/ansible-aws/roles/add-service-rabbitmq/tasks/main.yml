@@ -29,6 +29,7 @@
       env:
         PYTHONUNBUFFERED: 0
 
+# docker run -p 5672:5672 rabbitmq:3
 # docker run -p 7000:7000 -e "SCENESPACE_MEDIA_BASEPATH=/usr/src/scenespace/scenespaceinput/" -e "PYTHONUNBUFFERED=0" scenespace-service:ex1
 #
 #  - name: checkout health monitoring tools
