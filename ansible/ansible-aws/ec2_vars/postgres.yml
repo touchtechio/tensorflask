@@ -1,0 +1,39 @@
+#provision settings
+#file: ./ec2_vars/test.yml
+key_name: ~/aws-intel-key-matt.pem
+aws_region: us-west-2
+vpc_id: vpc-02a0767a
+#ami_id: ami-51537029   # Select 64-bit Ubuntu Server 16.04 LTS (HVM), SSD Volume Type
+ami_id: ami-06f2f779464715dc5   # Select 64-bit Ubuntu Server 18.04 LTS (HVM), SSD Volume Type
+#ami_id: ami-18693660   # ubunutu deep learning v12
+#ami_id: ami-ba602bc2  #ubunutu 16.04 lts
+instance_type: t2.micro
+my_local_cidr_ip: 0.0.0.0/0
+security_group: aws-intel-matt
+keypair: aws-intel-key-matt
+
+elastic_ip: 54.69.84.161
+
+remote_user: ubuntu
+user: ubuntu
+
+
+working_dir: /home/ubuntu/
+
+
+nfs_package: nfs-common # nfs-utils on RHEL/CentOS/Amazon Linux
+efs_file_system_id: fs-8d6a3e25
+efs_mount_dir: /efs
+
+
+test_media_localdir: /tmp/7C2A1867.MOV
+test_media_s3_bucket: content.ai
+
+ansible_type: postgres
+host_type_tag: tag_AnsibleType_postgres
+
+grabcut_working_dir: /Users/pinnermx/dev/git/contentai/RotoTool_SW_Sandbox/grabcut
+
+db_user: eddy
+db_name: images
+db_password: bowl
