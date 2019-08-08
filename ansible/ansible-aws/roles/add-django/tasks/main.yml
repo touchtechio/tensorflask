@@ -1,0 +1,38 @@
+---
+  - name: Synchronization of django example on the control machine to dest on the remote hosts
+    synchronize:
+      src: ../example/djangoimages/missinglink
+      dest: "{{ working_dir }}"
+    register: sync_result
+
+#
+#  - name: Build django env and with buildargs
+#    docker_image:
+#      name: flask-example
+#      path: "{{ working_dir }}/flask"
+#      tag: ex1
+#      state: present
+#      buildargs:
+#        log_volume: /var/log/flask
+#        listen_port: 5000
+#    #when: sync_result.changed
+#
+#  - name: ensure a flask front-end container is running
+#    docker_container:
+#      name: ex1-flask
+##      state: started
+#      state: started
+#      image: "flask-example:ex1"
+#      #pull: true
+#      ports:
+#        - "8080:5000"
+#      env:
+#        USERNAME: eddy
+#        PASSWORD: bowl
+
+#
+#  - name: checkout health monitoring tools
+#    git:
+#      repo: "https://github.com/Runscope/healthcheck"
+#      dest: "{{ working_dir }}/healthcheck"
+##      version: release-0.22

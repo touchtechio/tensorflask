@@ -4,9 +4,11 @@
    become: yes
    become_user: root
    become_method: sudo
+#   sudo: yes
+#   sudo_user: root
+#   remote_user: ubuntu
    pre_tasks:
     - include_vars: ec2_vars/{{type}}.yml
    roles:
-#    - add-efs
-    - add-nginx
+    - add-postgres
 

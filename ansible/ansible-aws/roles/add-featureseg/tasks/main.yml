@@ -1,0 +1,41 @@
+---
+  - name: Synchronization of featureseg github to dest on the remote hosts
+    synchronize:
+      src: "{{ featureseg_dir }}"
+      dest: "{{ working_dir }}"
+    register: sync_result
+
+#
+#  - name: Build scenespace image with buildargs and sync'd dockerfile
+#    docker_image:
+#      name: scenespace-service
+#      path: "{{ working_dir }}/SceneSpace"
+#      tag: ex1
+#      state: present
+#      buildargs:
+#        log_volume: /var/log/scenespace
+#        listen_port: 7000
+#    #when: sync_result.changed
+#
+#  - name: ensure a media service rest api container is running
+#    docker_container:
+#      name: ex1-scenespace
+##      state: started
+#      state: started
+#      image: "scenespace-service:ex1"
+#      #pull: true
+#      ports:
+#        - "7000:7000"
+#      volumes:
+#        - "{{ efs_mount_dir }}/m:/usr/src/scenespace"
+#      env:
+#        SCENESPACE_MEDIA_BASEPATH: /usr/src/scenespace/scenespaceinput/
+#        PYTHONUNBUFFERED: 0
+
+# docker run -p 7000:7000 -e "SCENESPACE_MEDIA_BASEPATH=/usr/src/scenespace/scenespaceinput/" -e "PYTHONUNBUFFERED=0" scenespace-service:ex1
+#
+#  - name: checkout health monitoring tools
+#    git:
+#      repo: "https://github.com/Runscope/healthcheck"
+#      dest: "{{ working_dir }}/healthcheck"
+##      version: release-0.22
