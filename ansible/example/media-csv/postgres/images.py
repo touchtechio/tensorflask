@@ -6,14 +6,12 @@ import pandas as pd
 class Images(object):
     """postgres database class that holds testers jobs"""
     __DB_LOCATION = "beefy.ra.intel.com"
+    __DB_PORT = 5432
     __LAIKA_IMAGE_CSV = "../data/data/Laika-Kubo.csv"
 
-    def __init__(self, db_location=None):
+    def __init__(self, db_location=__DB_LOCATION, db_port=__DB_PORT):
         """Initialize db class variables"""
-        if db_location is not None:
-            self.__db_connection = psycopg2.connect(host=db_location, dbname="images", user="eddy", password="bowl")
-        else:
-            self.__db_connection = psycopg2.connect(host=self.__DB_LOCATION, dbname="images", user="eddy", password="bowl")
+        self.__db_connection = psycopg2.connect(host=db_location, port=db_port, dbname="images", user="eddy", password="bowl")
         self.cur = self.__db_connection.cursor()
 
     def __del__(self):
@@ -42,6 +40,8 @@ class Images(object):
                              PATH           TEXT    NOT NULL,
                              EXT            TEXT    NOT NULL,
                              TAGS           TEXT    NOT NULL,
+                             SCENE_NO       INTEGER NULL,
+                             SHOT_NO        INTEGER NULL,
                              FRAME_NO       INTEGER NULL);''')
 
     def drop_table(self):

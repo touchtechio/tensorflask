@@ -92,7 +92,7 @@ DATABASES = {
         'NAME': 'missinglink',
         'USER': 'eddy',
         'PASSWORD': 'bowl',
-        'HOST': '34.218.254.76',
+        'HOST': '35.166.179.140',  # elastic ip ??
         'PORT': ''
         #'HOST': 'localhost',
         # 'PORT': '63333'
