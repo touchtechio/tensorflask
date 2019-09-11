@@ -1,0 +1,7 @@
+---
+  - name: install htop
+    apt: name={{ item }} update_cache=yes
+    update_cache: yes
+    with_items:
+      - htop
+
