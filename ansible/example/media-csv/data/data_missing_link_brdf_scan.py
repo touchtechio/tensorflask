@@ -25,6 +25,9 @@ import csv
 path = '/Volumes/Samsung_T5/Kubo'
 path = '/duo/contentai/Laika Data_ 02202019/PKG - Kubo training data/Marketing_Kubo/'
 path = '/Volumes/Samsung_T5/MissingLink_Groundtruth_PNG'
+path = '/data/brdf_scan_lionel'
+
+
 
 def remove_path(text):
     if text.startswith(path):
@@ -36,7 +39,7 @@ def split_fileext(text):
     ext = os.path.splitext(text)[1]
     return name, ext
 
-with open('./data/MissingLink_Groundtruth_PNG.csv', 'w', encoding='utf8') as csvfile:
+with open('./data/brdf_scan_lionel.csv', 'w', encoding='utf8') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(['ImageFilename', 'ImageDirectory', 'ImageExtension'])
     for dirpath, _, filenames in os.walk(path):
