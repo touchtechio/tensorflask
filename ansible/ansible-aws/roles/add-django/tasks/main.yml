@@ -3,6 +3,8 @@
     synchronize:
       src: ../example/djangoimages/missinglink
       dest: "{{ working_dir }}"
+      rsync_opts:
+        - "--chown ubuntu:ubuntu"
     register: sync_result
 
 #

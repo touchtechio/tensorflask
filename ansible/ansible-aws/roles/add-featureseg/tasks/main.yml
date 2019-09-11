@@ -1,9 +1,30 @@
 ---
+#  - name: pull latest feature seg from github
+#    git:
+#      repo: "https://github.com/next-i/featureseg.git"
+#      dest: "{{ featureseg_dir }}"
+
   - name: Synchronization of featureseg github to dest on the remote hosts
     synchronize:
       src: "{{ featureseg_dir }}"
       dest: "{{ working_dir }}"
+      rsync_opts:
+        - "--chown=ubuntu:ubuntu"
     register: sync_result
+
+
+  - name: Install virtualenv via pip
+    pip:
+      name: virtualenv
+      executable: pip3
+
+    # Install specified python requirements in indicated (virtualenv).
+  - name: create virtual env and pip in the requirements
+    pip:
+      requirements: "/home/ubuntu/featureseg/requirements.txt"
+      virtualenv: "/home/ubuntu/featureseg/laika"
+      virtualenv_python: python3.5
+
 
 #
 #  - name: Build scenespace image with buildargs and sync'd dockerfile

@@ -9,6 +9,5 @@
    roles:
 #    - add-docker
     - add-featureseg
+    - add-perf-utils
 
-#   handlers:
-#    - include: handlers/main.yml
