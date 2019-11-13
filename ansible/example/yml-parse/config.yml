@@ -1,0 +1,16 @@
+# YAML config for Laika feature seg notebooks and training environment
+# setup default values for developers as working starting point to execute training scripts
+# provide human readable and machine diffable explaination of what are a training's parameters
+
+input:
+  root_media: "/data/GDrive/featureseg"
+
+training:
+  img_width: 224
+  img_height: 224
+  num_points: 24
+
+
+
+output:
+  model_folder: "/data/GDrive/featureseg/models"
